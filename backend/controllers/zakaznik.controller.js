@@ -1,5 +1,5 @@
-var models = require('../models');
-var Zakaznik = models.zakaznik;
+const { sequelize } = require('../models/index.js')
+const Zakaznik = sequelize.models.Zakaznik
 
 exports.create = (req, res) => {
     if (!req.body) {
@@ -18,7 +18,6 @@ exports.create = (req, res) => {
         postcode: req.body.postcode
     };
 
-    // Save Tutorial in the database
     Zakaznik.create(zakaznik)
         .then(data => {
             res.json(data);

@@ -1,5 +1,5 @@
-var models = require('../models');
-var Reklama = models.reklama;
+const { sequelize } = require('../models/index.js')
+const Reklama = sequelize.models.Reklama
 
 exports.create = (req, res) => {
     if (!req.body) {

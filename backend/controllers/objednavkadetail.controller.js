@@ -1,5 +1,5 @@
-var models = require('../models');
-var ObjednavkaDetail = models.objednavkadetail;
+const { sequelize } = require('../models/index.js')
+const ObjednavkaDetail = sequelize.models.ObjednavkaDetail
 
 exports.findOrder = (req, res) => {
     const order_id = req.params.order_id;

@@ -1,5 +1,5 @@
-var models = require('../models');
-var Produkt = models.produkt;
+const { sequelize } = require('../models/index.js')
+const Produkt = sequelize.models.Produkt
 
 exports.findAll = (req, res) => {
     Produkt.findAll()

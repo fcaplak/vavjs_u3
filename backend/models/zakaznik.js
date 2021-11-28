@@ -10,10 +10,17 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Zakaznik.belongsTo(models.ObjednavkaDetail);
+      this.hasOne(models.Objednavka, { foreignKey: 'customerId'});
+      //models.Objednavka.hasOne(this);
     }
   };
   Zakaznik.init({
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+    },
     email: DataTypes.STRING,
     name: DataTypes.STRING,
     street: DataTypes.STRING,

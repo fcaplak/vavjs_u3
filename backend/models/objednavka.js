@@ -10,10 +10,18 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Objednavka.belongsTo(models.ObjednavkaDetail);
+      this.hasMany(models.ObjednavkaDetail, { as: 'products', foreignKey: 'orderId'});
+      this.belongsTo(models.Zakaznik, {as : 'customer', foreignKey: 'customerId'});
     }
-  };
+  };  
+
   Objednavka.init({
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     customerId: DataTypes.INTEGER,
     status: DataTypes.BOOLEAN
   }, {

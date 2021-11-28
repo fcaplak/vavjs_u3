@@ -1,11 +1,11 @@
-var models = require('../models');
-var Objednavka = models.objednavka;
-var ObjednavkaDetail = models.objednavkadetail;
-var Zakaznik = models.zakaznik;
+const { sequelize } = require('../models/index.js')
+const Objednavka = sequelize.models.Objednavka
+const ObjednavkaDetail = sequelize.models.ObjednavkaDetail
+const Zakaznik = sequelize.models.Zakaznik
 
 async function placeOrder(req, res) {
 
-    const transaction = await models.sequelize.transaction();
+    const transaction = await sequelize.transaction();
 
     try {
         // Create Zakaznik
@@ -25,7 +25,7 @@ async function placeOrder(req, res) {
         }, { transaction });
 
         // Create ObjednavkaDetail with zakaznik_id, order_id + products, quantity
-        const cpavci = req.body.items.map(
+        const req_products = req.body.items.map(
             item => {
                 return {
                 orderId: objednavka.id,
@@ -34,7 +34,7 @@ async function placeOrder(req, res) {
               }
             });
         
-        const objednavkaDetail = await ObjednavkaDetail.bulkCreate(cpavci, { transaction });
+        const objednavkaDetail = await ObjednavkaDetail.bulkCreate(req_products, { transaction });
         
         await transaction.commit();
         return res.json( objednavkaDetail );
@@ -64,7 +64,8 @@ exports.update = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    Objednavka.findAll()
+
+  Objednavka.findAll({ include: [{ model: Zakaznik, as: "customer", attributes: {exclude: ['id']} }, { model: ObjednavkaDetail, as: "products", attributes: [ 'productId', 'quantity'] } ] })
     .then(data => {
       res.json(data);
     })
