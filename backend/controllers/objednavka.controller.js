@@ -1,0 +1,77 @@
+var models = require('../models');
+var Objednavka = models.objednavka;
+var ObjednavkaDetail = models.objednavkadetail;
+var Zakaznik = models.zakaznik;
+
+async function placeOrder(req, res) {
+
+    const transaction = await models.sequelize.transaction();
+
+    try {
+        // Create Zakaznik
+        const zakaznik = await Zakaznik.create({
+            email: req.body.email,
+            name: req.body.name,
+            street: req.body.street,
+            number: req.body.number,
+            city: req.body.city,
+            postcode: req.body.postcode
+        }, { transaction });
+
+        // Create Objednavka
+        const objednavka = await Objednavka.create({
+            customerId: zakaznik.id,
+            status: false
+        }, { transaction });
+
+        // Create ObjednavkaDetail with zakaznik_id, order_id + products, quantity
+        const cpavci = req.body.items.map(
+            item => {
+                return {
+                orderId: objednavka.id,
+                productId: item.productId,
+                quantity: item.quantity
+              }
+            });
+        
+        const objednavkaDetail = await ObjednavkaDetail.bulkCreate(cpavci, { transaction });
+        
+        await transaction.commit();
+        return res.json( objednavkaDetail );
+
+    } catch (error) {
+        await transaction.rollback();
+        return res.send(error);
+    }
+}
+
+exports.create = (req, res) => {
+    return placeOrder(req, res);
+};
+
+exports.update = (req, res) => {
+    const order_id = req.params.order_id;
+    
+    Objednavka.update({ status: true }, { where: { id: order_id }})
+        .then(num => {
+            res.send("1");
+        })
+        .catch(err => {
+        res.status(500).send({
+          message: "Error updating with order_id=" + order_id
+        });
+      });
+};
+
+exports.findAll = (req, res) => {
+    Objednavka.findAll()
+    .then(data => {
+      res.json(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "REST API error"
+      });
+    });
+};
