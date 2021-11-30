@@ -22,19 +22,19 @@ module.exports = {
       }
     }),
       await queryInterface.bulkInsert('Produkt', [{
-        title: "Cpavok",
-        image: "http://cpavok.sk",
-        price: 5.50
+        title: "Yamaha CLP-665GP",
+        image: "https://www.hudobny-dom.sk/galeria/3_36202/yamaha-clp-665-gp-pe-digitalni-klavir-original.jpg",
+        price: 4611.5
       },
       {
-        title: "Cpavok2",
-        image: "http://cpavok2.sk",
-        price: 8.7
+        title: "Leonardo LC-1018",
+        image: "https://i.cdn.nrholding.net/52544429/1000/1000",
+        price: 349
         },
       {
-        title: "Cpavok2",
-        image: "http://cpavok2.sk",
-        price: 8.7
+        title: "Pearl RS505C Roadshow",
+        image: "https://muzikercdn.com/uploads/products/546/54671/main_ead0245e.jpg",
+        price: 489
       }
       ]);
   },
