@@ -1,9 +1,8 @@
-import Header from "../components/Header";
 import Product from "../components/Product";
 
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 import { useState, useEffect } from 'react';
   
 const Produkty = () => {
@@ -15,22 +14,26 @@ const Produkty = () => {
             .then(result => setProdukty(result))
     }, []);
 
-    let nums = Array.from(Array(40).keys());
+    var storedKosik = JSON.parse(localStorage.getItem("produkty_kosik"));
+    const [kosik, setKosik] = useState(storedKosik ? storedKosik : [] );
+    
+    localStorage.setItem("produkty_kosik", JSON.stringify(kosik));
 
     return (
-        <Grid sx={{ flexGrow: 1, pt: 10}} container>
-        <Grid item xs={12}>
-            <Grid container justifyContent="center" spacing={2}>
-            {
-            produkty.length > 0 ? (         
-            produkty.map((produkt) => (
-              <Product produkt={produkt}/>
-            ))) : 'Loading...'
-                    
-            }
-          </Grid>
-        </Grid>
-      </Grid>
+        <>
+            <Typography sx={{ pt: 5, fontWeight: 'bold' }} variant="h5" align="center">Zoznam produktov</Typography>
+            <Grid sx={{ flexGrow: 1, pt: 10}} container>
+            <Grid item xs={12}>
+                <Grid container justifyContent="center" spacing={2}>
+                {
+                    produkty.length > 0 ? (         
+                                produkty.map((produkt) => (<Product produkt={produkt} kosik={kosik} setKosik={setKosik} key={produkty.id}/>))
+                            ) : 'Loading...'
+                }
+            </Grid>
+            </Grid>
+            </Grid>
+        </>
     );
 }
   

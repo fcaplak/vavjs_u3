@@ -1,19 +1,25 @@
-import IconButton from '@mui/material/IconButton';
 import AddShoppingCart from '@mui/icons-material/AddShoppingCart';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
-const Product = ({produkt}) => {
+const Product = ( { produkt, kosik, setKosik } ) => {
+    
+    //localStorage.setItem("theme", json:cpavok");
+
+    const addToCart = (item) => setKosik((kosik) => [...kosik, item]);
+    const amountOfItems = (id) => kosik.filter((item) => item === id).length;
+
     return (
         <Grid key={produkt.id} item>
-            <Paper justifyContent="center" sx={{ height: 400, width: 300 }}>
+            <Paper sx={{ height: 450, width: 300 }}>
                 <Typography sx={{ pt: 2 }} variant="h6" align="center">{produkt.title}</Typography>
-                <img src={produkt.image} width="250" /><br />
+                <img src={produkt.image} width="250" alt="Obrazok hudobneho nastroja" /><br />
                 <Typography sx={{ pt: 2 }} variant="h5" align="center">€ {produkt.price.toFixed(2).replace('.', ',')}</Typography>
-                <IconButton color="primary" aria-label="add to shopping cart">
-                    <AddShoppingCart align="center"/>
-                </IconButton>
+
+                <Button sx={{ ml: 7, mt: 2, mb: 2 }} variant="outlined" onClick={() => addToCart(produkt.id)} startIcon={<AddShoppingCart />}>Pridať do košíka</Button>
+                <Typography align="center">{amountOfItems(produkt.id) > 0 ? `${amountOfItems(produkt.id)} ks`: ''}</Typography>
             </Paper>
         </Grid>
     );

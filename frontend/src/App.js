@@ -3,6 +3,7 @@ import Produkty from './pages/Produkty';
 import Cart from './pages/Cart';
 import Navbar from './components/Navbar';
 import GlobalStyles from "@mui/material/GlobalStyles";
+import Order from './pages/Order';
 
 const App = () => (
   <>
@@ -13,8 +14,9 @@ const App = () => (
     />
   <Navbar />
   <Routes>
-      <Route path="/produkty" element={<Produkty />} />
+      <Route path="/" element={<Produkty />} />
       <Route path="/kosik" element={<Cart />} />
+      <Route path="/objednavka" element={<Order />} />
     </Routes>
   </>
 );
