@@ -4,10 +4,8 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-const Product = ( { produkt, kosik, setKosik } ) => {
+const Product = ({ produkt, kosik, setKosik }) => {
     
-    //localStorage.setItem("theme", json:cpavok");
-
     const addToCart = (item) => setKosik((kosik) => [...kosik, item]);
     const amountOfItems = (id) => kosik.filter((item) => item === id).length;
 

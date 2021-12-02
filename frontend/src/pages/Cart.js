@@ -40,12 +40,10 @@ const Cart = () => {
             <TableCell align="right">Množstvo</TableCell> 
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody>a
           {products.map((product) => (
             <Productrow key={product.id} id={product.id} quantity={product.quantity} kosik={kosik} setKosik={setKosik} />
           ))}
-            
-
           <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell colSpan={4} align="right">
                 { products.length > 0 ? <Button href="/objednavka" variant="outlined" startIcon={<ShoppingCartCheckout />}>Pokračovať k objednávke</Button> : '' }

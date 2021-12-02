@@ -20,7 +20,12 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       }
-    });
+    }),
+    await queryInterface.bulkInsert('Reklama', [{
+        link: "https://www.docker.com/",
+        image: "https://www.threatstack.com/wp-content/uploads/2017/06/docker-cloud-twitter-card.png",
+        counter: 0
+    }]);
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Reklama');

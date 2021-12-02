@@ -2,6 +2,7 @@ const { sequelize } = require('../models/index.js')
 const Objednavka = sequelize.models.Objednavka
 const ObjednavkaDetail = sequelize.models.ObjednavkaDetail
 const Zakaznik = sequelize.models.Zakaznik
+const Produkt = sequelize.models.Produkt
 
 async function placeOrder(req, res) {
 
@@ -37,11 +38,15 @@ async function placeOrder(req, res) {
         const objednavkaDetail = await ObjednavkaDetail.bulkCreate(req_products, { transaction });
         
         await transaction.commit();
-        return res.json( objednavkaDetail );
+      return res.json( objednavkaDetail );
 
     } catch (error) {
-        await transaction.rollback();
-        return res.send(error);
+      await transaction.rollback();
+      if (error.name === "SequelizeUniqueConstraintError")
+        res.status(403);
+      else
+        res.status(400);
+      return res.send(error);
     }
 }
 
@@ -65,7 +70,7 @@ exports.update = (req, res) => {
 
 exports.findAll = (req, res) => {
 
-  Objednavka.findAll({ include: [{ model: Zakaznik, as: "customer", attributes: {exclude: ['id']} }, { model: ObjednavkaDetail, as: "products", attributes: [ 'productId', 'quantity'] } ] })
+  Objednavka.findAll({ include: [{ model: Zakaznik, as: "customer", attributes: { exclude: ['id'] } }, { model: ObjednavkaDetail, as: "products", attributes: ['productId', 'quantity'], include: [{ model: Produkt } ] } ] })
     .then(data => {
       res.json(data);
     })

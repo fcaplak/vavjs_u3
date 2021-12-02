@@ -4,6 +4,8 @@ import Cart from './pages/Cart';
 import Navbar from './components/Navbar';
 import GlobalStyles from "@mui/material/GlobalStyles";
 import Order from './pages/Order';
+import Podakovanie from './pages/Podakovanie';
+import Admin from './pages/Admin';
 
 const App = () => (
   <>
@@ -17,6 +19,8 @@ const App = () => (
       <Route path="/" element={<Produkty />} />
       <Route path="/kosik" element={<Cart />} />
       <Route path="/objednavka" element={<Order />} />
+      <Route path="/podakovanie" element={<Podakovanie />} />
+      <Route path="/admin" element={<Admin />} />
     </Routes>
   </>
 );
