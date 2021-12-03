@@ -4,7 +4,9 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { useState, useEffect } from 'react';
-  
+import Button from '@mui/material/Button';
+import ShoppingCartCheckout from '@mui/icons-material/ShoppingCartCheckout';
+
 const Produkty = () => {
     const [produkty, setProdukty] = useState([]);
 
@@ -32,6 +34,15 @@ const Produkty = () => {
                 }
             </Grid>
             </Grid>
+            </Grid>
+            <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            >
+                <Button sx={{ mt: 3 }} href="/objednavka" variant="outlined" startIcon={<ShoppingCartCheckout />}>Pokračovať k objednávke</Button>
             </Grid>
         </>
     );
