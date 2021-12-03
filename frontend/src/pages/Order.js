@@ -37,6 +37,7 @@ const Order = () => {
         })
             .then(response => {
                 if (response.status === 200) {
+                    localStorage.removeItem("produkty_kosik");
                     navigate('/podakovanie');
                 }
             })
@@ -64,7 +65,7 @@ const Order = () => {
                 </Grid>
                 <Grid item xs={2} sx={{ padding: 1 }}>
                     <TextField type='text' onChange={e => setCity(e.target.value)} value={city} label="Mesto" variant="standard" /> 
-                    <TextField type='number' onChange={e => setPostcode(e.target.value)} value={postcode} label="PSČ" variant="standard" />
+                    <TextField type='text' onChange={e => setPostcode(e.target.value)} value={postcode} label="PSČ" variant="standard" />
                 </Grid>
                 
                 <Button onClick={handleOrder} variant="outlined">Objednať</Button>

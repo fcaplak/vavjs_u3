@@ -9,9 +9,9 @@ app.use(cors());
 require('./routes')(app);
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send("I'm alive!")
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Backend app listening at http://localhost:${port}`)
 })

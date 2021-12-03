@@ -40,7 +40,7 @@ const Cart = () => {
             <TableCell align="right">Množstvo</TableCell> 
           </TableRow>
         </TableHead>
-        <TableBody>a
+        <TableBody>
           {products.map((product) => (
             <Productrow key={product.id} id={product.id} quantity={product.quantity} kosik={kosik} setKosik={setKosik} />
           ))}

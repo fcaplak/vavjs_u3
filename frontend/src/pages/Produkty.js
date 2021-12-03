@@ -27,7 +27,7 @@ const Produkty = () => {
                 <Grid container justifyContent="center" spacing={2}>
                 {
                     produkty.length > 0 ? (         
-                                produkty.map((produkt) => (<Product produkt={produkt} kosik={kosik} setKosik={setKosik} key={produkty.id}/>))
+                                produkty.map((produkt) => <Product produkt={produkt} kosik={kosik} setKosik={setKosik} key={produkt.id} />)
                             ) : 'Loading...'
                 }
             </Grid>
