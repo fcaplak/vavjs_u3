@@ -8,22 +8,7 @@ module.exports = {
     "database": DB_NAME,
     "host": DB_HOST,
     "dialect": "postgres",
-    "port": 5432
-  },
-  "test": {
-    "username": DB_USERNAME,
-    "password": DB_PASSWORD,
-    "database": DB_NAME,
-    "host": DB_HOST,
-    "dialect": "postgres",
-    "port": 5432
-  },
-  "production": {
-    "username": DB_USERNAME,
-    "password": DB_PASSWORD,
-    "database": DB_NAME,
-    "host": DB_HOST,
-    "dialect": "postgres",
-    "port": 5432
+    "port": 5432,
+    "logging" : false
   }
 }

@@ -37,8 +37,9 @@ async function placeOrder(req, res) {
         
         const objednavkaDetail = await ObjednavkaDetail.bulkCreate(req_products, { transaction });
         
-        await transaction.commit();
-      return res.json( objednavkaDetail );
+      await transaction.commit();
+      res.status(201);
+      return res.json( objednavka.id );
 
     } catch (error) {
       await transaction.rollback();

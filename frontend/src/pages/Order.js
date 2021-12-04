@@ -36,7 +36,7 @@ const Order = () => {
             body: JSON.stringify({ email: email, name: name, street: street, number: number, city: city, postcode: postcode, items })
         })
             .then(response => {
-                if (response.status === 200) {
+                if (response.status === 201) {
                     localStorage.removeItem("produkty_kosik");
                     navigate('/podakovanie');
                 }
